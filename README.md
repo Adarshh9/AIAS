@@ -70,7 +70,7 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/AIAS.git
+git clone https://github.com/Adarshh9/AIAS.git
 cd AIAS
 
 # 2. Create virtual environment
@@ -346,6 +346,6 @@ MIT License - See [LICENSE](LICENSE) for details.
 **Made with  by [Adarsh Kesharwani](https://adarshhme.vercel.app/)**
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-adarshhme.vercel.app-00d4aa?style=flat-square)](https://adarshhme.vercel.app/)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat-square&logo=github)](https://github.com/yourusername)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat-square&logo=github)](https://github.com/Adarshh9)
 
 </div>
