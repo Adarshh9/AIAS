@@ -1,0 +1,29 @@
+# Audio Pipeline
+openwakeword>=0.6.0        # Open source wake word detection (MIT license)
+faster-whisper>=1.0.0
+pyaudio>=0.2.14
+webrtcvad>=2.0.10
+numpy>=1.24.0
+sounddevice>=0.4.6
+onnxruntime>=1.16.0        # For OpenWakeWord inference
+
+# Optional: Porcupine (requires API key)
+# pvporcupine>=3.0.0
+
+# Screen Capture
+mss>=9.0.0
+Pillow>=10.0.0
+
+# Multimodal LLM
+torch>=2.1.0
+transformers>=4.40.0
+accelerate>=0.27.0
+qwen-vl-utils>=0.0.2
+einops>=0.7.0
+
+# UI
+tk>=0.1.0
+
+# Utilities
+pyyaml>=6.0.0
+python-dotenv>=1.0.0

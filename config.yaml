@@ -1,0 +1,120 @@
+# AIAS Configuration
+# AI Assistant System - Production Config
+
+audio:
+  # Hotword detection settings
+  hotword:
+    # OpenWakeWord (recommended - 100% free & open source)
+    # Available: "hey_jarvis", "alexa", "hey_mycroft", "hey_rhasspy"
+    # Custom wake words: train your own at https://github.com/dscripka/openWakeWord
+    keyword: "alexa"  # Best for custom assistant
+    sensitivity: 0.5       # 0.0-1.0 (higher = more sensitive)
+    prefer_openwakeword: true  # Use OpenWakeWord over Porcupine
+    
+  # Speech-to-text settings
+  stt:
+    model_size: "base"    # tiny, base, small, medium, large-v3
+    device: "cuda"        # cuda or cpu
+    compute_type: "float16"  # float16, int8, int8_float16
+    language: "en"        # Language code or null for auto-detect
+    
+  # Audio capture settings
+  capture:
+    sample_rate: 16000
+    channels: 1
+    chunk_duration_ms: 30  # VAD frame size
+    silence_threshold_ms: 1000  # Silence before stopping recording
+    max_recording_seconds: 30
+
+screen:
+  # Screenshot capture settings
+  capture:
+    interval_seconds: 2.5    # Capture interval
+    max_buffer_size: 5       # Circular buffer size
+    monitor: 0               # Primary monitor (0) or specific monitor number
+    
+  # Image processing
+  processing:
+    max_width: 1280          # Higher res for better text reading
+    jpeg_quality: 95         # Higher quality for text clarity
+    
+llm:
+  # Provider: "local" for local models, "groq" for Groq API
+  provider: "groq"
+  
+  # Groq API settings (when provider: "groq")
+  groq:
+    # Llama 4 Vision models (RECOMMENDED - best for screen reading):
+    # - meta-llama/llama-4-scout-17b-16e-instruct (BEST - 128K context, fast)
+    # - meta-llama/llama-4-maverick-17b-128e-instruct (larger, slower)
+    # 
+    # Legacy vision models:
+    # - llama-3.2-90b-vision-preview
+    # - llama-3.2-11b-vision-preview
+    model: "meta-llama/llama-4-scout-17b-16e-instruct"
+    max_tokens: 1024
+    temperature: 0.3
+    # API key from environment variable GROQ_API_KEY
+    # Get your key at: https://console.groq.com/keys
+  
+  # Local model configuration (when provider: "local")
+  model:
+    # 2B model recommended for 8GB VRAM GPUs (RTX 3060/4060/5060)
+    # 7B model requires 16GB+ VRAM
+    name: "Qwen/Qwen2-VL-2B-Instruct"
+    device_map: "auto"
+    torch_dtype: "auto"      # auto, float16, bfloat16
+    
+  # Generation settings (for local models)
+  generation:
+    max_new_tokens: 256      # Shorter responses = faster
+    temperature: 0.3         # Lower = faster, more focused
+    top_p: 0.9
+    do_sample: true
+    
+  # System prompt
+  system_prompt: |
+    You are AIAS, an intelligent AI assistant with vision capabilities.
+    You can see the user's screen through recent screenshots.
+    Provide concise, helpful responses based on what you see and what the user asks.
+    Focus on being practical and actionable.
+    
+overlay:
+  # Window settings
+  window:
+    width: 450
+    height: 180
+    position: "bottom-right"  # bottom-right, bottom-left, top-right, top-left, center
+    margin: 20               # Pixels from screen edge
+    
+  # Appearance
+  appearance:
+    background_color: "#1a1a2e"
+    text_color: "#00ff88"
+    font_family: "Consolas"
+    font_size: 11
+    opacity: 0.92
+    border_radius: 10        # Not supported in Tkinter, placeholder for future
+    
+  # Behavior
+  behavior:
+    auto_hide_seconds: 8     # Auto-hide after N seconds (0 = never)
+    fade_animation: true
+    show_on_startup: false
+
+# Performance tuning
+performance:
+  # Threading
+  audio_thread_priority: "high"
+  inference_thread_priority: "normal"
+  
+  # Memory management
+  clear_cuda_cache_interval: 10  # Clear VRAM cache every N inferences
+  screenshot_buffer_in_memory: true  # Keep screenshots in RAM vs disk
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "aias.log"
+  max_size_mb: 50
+  backup_count: 3
